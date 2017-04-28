@@ -19,7 +19,7 @@ import java.io.IOException;
  */
 public class DataFormat {
     public static void main(String[] args) throws InterruptedException, IOException, ClassNotFoundException {
-        run("df");
+        run("/adult");
     }
 
     public static void run(String root) throws IOException, ClassNotFoundException, InterruptedException {
@@ -50,7 +50,7 @@ public class DataFormat {
     static class FormatMapper extends Mapper<LongWritable,Text,Text,Text>
     {
         Counter counter;
-        Text text=new Text("");
+        Text text=new Text("error");
         @Override
         protected void setup(Context context) throws IOException, InterruptedException {
             counter=context.getCounter("Error","含有？数据项");
@@ -58,13 +58,9 @@ public class DataFormat {
 
         @Override
         protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
-            if(value.toString().contains("?")){
-                counter.increment(1);
-            }
-            else
-            {
+            if(! (value.toString().split(",").length==15))
                 context.write(value,text);
-            }
+
         }
     }
 }
