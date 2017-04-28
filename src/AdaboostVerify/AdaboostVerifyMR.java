@@ -16,7 +16,7 @@ import java.io.IOException;
  */
 public class AdaboostVerifyMR {
     public static void main(String[] args) throws Exception {
-        String root="/root/桌面/Adaboost数据/衣服/5个0.35一下";
+        String root="/adult";
 
         run(root);
 
@@ -27,7 +27,7 @@ public class AdaboostVerifyMR {
         String data=root+"/data";
         String results=root+"/VerifyResults-all";
         String classiferPath=root+"/classifer";
-        String classiferinfo=root+"/allInfo";
+        String classiferinfo=root+"/classiferInfo";
 
         conf.set("rules",classiferPath);
         conf.set("info",classiferinfo);

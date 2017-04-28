@@ -34,7 +34,7 @@ public class VerifyMapper extends Mapper<LongWritable,Text,Text,Text> {
 
     @Override
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
-        Text text=new Text(treeRoot.verify(value.toString()));
+        Text text=new Text(treeRoot.verify(value.toString().split("#")[0]));
         context.write(value,text);
     }
 }

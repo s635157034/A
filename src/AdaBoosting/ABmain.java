@@ -1,5 +1,6 @@
 package AdaBoosting;
 
+import AdaboostVerify.AdaboostVerifyMR;
 import DTree.program.DecisionTreeDriver;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FSDataInputStream;
@@ -18,8 +19,8 @@ import java.util.Scanner;
 public class ABmain {
     public static long N = 10000;//抽取样本数量
     public static long T;//全部数据数量
-    public static long max = 5;
-    public static double MaxError = 0.35;
+    public static long max = 10;
+    public static double MaxError = 0.5;
     public static ArrayList<ClassiferInfo> info = new ArrayList<ClassiferInfo>();
     public static ArrayList<ClassiferInfo> allinfo =new ArrayList<>();
 
@@ -28,7 +29,7 @@ public class ABmain {
         long startTime=System.currentTimeMillis();
 
 
-        String root ="test";
+        String root ="/adult";
         String data = root+"/data";//数据集
         String tempdata = root+"/tempdata";//包含权重的数据
         String sample = root+"/sample";//抽样文件
@@ -42,16 +43,16 @@ public class ABmain {
 
 
         InitializeMR.run(data, tempdata, total);//初始化数据集(加入权重）
-/*        T = ReadTotalnumber(total);
+        T = ReadTotalnumber(total);
         System.out.println(T);
         do {
             i++;
-            System.out.println("第"+i+"次抽样");*/
+            System.out.println("第"+i+"次抽样");
 
             String str = "-" + Integer.toString(i);
             Sampling(tempdata,sample+str,str);
 
-            /*System.out.println("第"+i+"次进行分类");
+            System.out.println("第"+i+"次进行分类");
 
             BuildClassifier(sample+str,classiferPath+"/classifer-"+i,ClassiferTmp+str);
 
@@ -66,8 +67,9 @@ public class ABmain {
             printInfo(root+ "/classiferInfo",info);
         } while (i < max);
         printInfo(root+"/allInfo",allinfo);
+        AdaboostVerifyMR.main(args);
         long endTime=System.currentTimeMillis(); //获取结束时间
-        WriteString(root+"/time","程序运行时间： "+formatDuring(endTime-startTime)+"s");*/
+        WriteString(root+"/time","程序运行时间： "+formatDuring(endTime-startTime)+"s");
     }
 
 

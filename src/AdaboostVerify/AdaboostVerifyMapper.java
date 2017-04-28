@@ -1,7 +1,6 @@
 package AdaboostVerify;
 
 import DTree.datatype.Tree;
-import org.apache.commons.math3.optim.nonlinear.vector.Weight;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FSDataInputStream;
 import org.apache.hadoop.fs.FileSystem;
@@ -34,11 +33,13 @@ public class AdaboostVerifyMapper extends Mapper<LongWritable,Text,Text,Text> {
         }
         scanner.close();
         fsDataInputStream.close();
+        decision.addAttribute();
     }
 
     @Override
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
-        Text text=new Text(decision.verify(value.toString()));
+//        Text text=new Text(decision.verify(value.toString()));
+        Text text=new Text(decision.verifyInfo(value.toString()));
         context.write(value,text);
     }
 }
@@ -92,7 +93,44 @@ class Decision{
         }
         return maxKey;
     }
+
+    public String verifyInfo(String s){
+        HashMap<String,Double> result=new HashMap<>();
+        double maxWeight=0;
+        String maxKey="error";
+        String verifyTmp;
+        double verifyWeight;
+        for(ClassiferInfo tmp : classiferInfList){
+            Tree.VerifyInfo verifyInfo=tmp.treeRoot.verifyInfo(s);
+            verifyTmp=verifyInfo.label;
+            verifyWeight=verifyInfo.weight;
+            //verifyWeight= verifyInfo.weight == 1 ?1:0;
+            if(result.containsKey(verifyTmp))
+            {
+                double weight=result.get(verifyTmp);
+                weight+=tmp.weight*verifyWeight;
+                if(weight>maxWeight)
+                {
+                    maxKey=verifyTmp;
+                }
+                result.put(verifyTmp,weight);
+            }
+            else{
+                result.put(verifyTmp,tmp.weight*verifyWeight);
+            }
+        }
+        return maxKey;
+    }
+
+    public void addAttribute(){
+        for(ClassiferInfo tmp : classiferInfList){
+            tmp.treeRoot.addAttribute();
+        }
+
+    }
+
 }
+
 
 
 
@@ -104,7 +142,7 @@ class ClassiferInfo {
     public ClassiferInfo(String name, double error) {
         this.name = name;
         this.error = error;
-        weight=0.5*Math.log((1-error)/error);
+        weight=-1*Math.log(error/(1-error));
         treeRoot=new Tree(name);
     }
 

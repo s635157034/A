@@ -1,5 +1,6 @@
 package DTree.datatype;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
@@ -8,6 +9,7 @@ public class Tree {
     String name;//属性名
     boolean leaf = false;//是否为叶子节点
     String label;//叶子节点的标签
+    double weight=1;
     HashMap<String, Tree> tree = new HashMap<>();
 
     public Tree(String name) {
@@ -50,7 +52,6 @@ public class Tree {
 
     public String verify(String s) {
         String str[] = s.split(",");
-
         if (leaf == true)
             return label;
         else {
@@ -58,8 +59,83 @@ public class Tree {
             if (tree.containsKey(names)) {
                 return tree.get(names).verify(s);
             } else {
-                return "error";
+                //return "error";
+                if(label==null){
+                    return "error";
+                }
+                else{
+                    return label;
+                }
             }
+        }
+    }
+
+    public VerifyInfo verifyInfo(String s){
+        String str[] = s.split(",");
+        if (leaf == true)
+            return new VerifyInfo(label);
+        else {
+            String names = str[id - 1];
+            if (tree.containsKey(names)) {
+                return tree.get(names).verifyInfo(s);
+            } else {
+                return new VerifyInfo(label,weight);
+            }
+        }
+    }
+
+
+
+    public void addAttribute(){
+        if(!leaf)
+        {
+            HashMap<String,Counter> max=new HashMap<>();
+            int maxcount,total=0;
+            String name;
+            for(Tree tmp : tree.values()){
+                tmp.addAttribute();
+                name=tmp.label;
+                if(max.containsKey(name)){
+                    max.get(name).count++;
+                }
+                else{
+                    max.put(name,new Counter(name));
+                }
+            }
+            maxcount=0;
+            name=null;
+            for(Counter tmp : max.values()){
+                total+=tmp.count;
+                if(tmp.count>maxcount){
+                    name=tmp.label;
+                    maxcount=tmp.count;
+                }
+            }
+            this.label=name;
+            this.weight=(double) maxcount/total;
+        }
+
+    }
+    class Counter{
+        String label;
+        int count=0;
+
+        public Counter(String label) {
+            this.label = label;
+            count++;
+        }
+    }
+    public class VerifyInfo{
+        public String label;
+        public double weight=1;
+
+        public VerifyInfo(String label) {
+            this.label = label;
+        }
+
+        public VerifyInfo(String label, double weight) {
+            this.label = label;
+            this.weight = weight;
         }
     }
 }
