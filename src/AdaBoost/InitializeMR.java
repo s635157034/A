@@ -1,25 +1,17 @@
-package AdaBoosting;
+package AdaBoost;
 
-import org.apache.commons.math3.optim.nonlinear.vector.Weight;
 import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.fs.FSDataInputStream;
-import org.apache.hadoop.fs.FSDataOutputStream;
-import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
-import org.apache.hadoop.mapred.JobConf;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Iterator;
-import java.util.Scanner;
 
 
 public class InitializeMR {

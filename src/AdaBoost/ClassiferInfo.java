@@ -1,4 +1,4 @@
-package AdaBoosting;
+package AdaBoost;
 
 public class ClassiferInfo {
     private String name;

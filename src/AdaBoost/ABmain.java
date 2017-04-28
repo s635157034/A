@@ -1,16 +1,14 @@
-package AdaBoosting;
+package AdaBoost;
 
 import AdaboostVerify.AdaboostVerifyMR;
 import DTree.program.DecisionTreeDriver;
 import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.fs.FSDataInputStream;
 import org.apache.hadoop.fs.FSDataOutputStream;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
