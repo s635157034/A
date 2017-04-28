@@ -1,2 +1,2 @@
 # Adaboost
-废柴的Adaboost，hadoop实现。决策树使用的是网上的代码。
+一个缓慢的Adaboost，hadoop实现。决策树使用的是网上的代码。
