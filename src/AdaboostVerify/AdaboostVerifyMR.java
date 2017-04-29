@@ -16,7 +16,7 @@ import java.io.IOException;
  */
 public class AdaboostVerifyMR {
     public static void main(String[] args) throws Exception {
-        String root="/root/桌面/Adaboost数据/adult/10个分类器/adult";
+        String root="/adult";
 
         run(root);
 

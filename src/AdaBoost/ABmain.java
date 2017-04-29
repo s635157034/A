@@ -15,10 +15,10 @@ import java.util.Scanner;
 
 
 public class ABmain {
-    public static long N = 10000;//抽取样本数量
+    public static long N = 3000;//抽取样本数量
     public static long T;//全部数据数量
-    public static long max = 10;
-    public static double MaxError = 0.5;
+    public static long max = 3;
+    public static double MaxError = 1;
     public static ArrayList<ClassiferInfo> info = new ArrayList<ClassiferInfo>();
     public static ArrayList<ClassiferInfo> allinfo =new ArrayList<>();
 
@@ -65,7 +65,7 @@ public class ABmain {
             printInfo(root+ "/classiferInfo",info);
         } while (i < max);
         printInfo(root+"/allInfo",allinfo);
-        AdaboostVerifyMR.main(args);
+        AdaboostVerifyMR.run(root);
         long endTime=System.currentTimeMillis(); //获取结束时间
         WriteString(root+"/time","程序运行时间： "+formatDuring(endTime-startTime)+"s");
     }

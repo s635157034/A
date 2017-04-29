@@ -30,11 +30,13 @@ public class VerifyMapper extends Mapper<LongWritable,Text,Text,Text> {
         }
         scanner.close();
         fsDataInputStream.close();
+        treeRoot.addAttribute();
     }
 
     @Override
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
-        Text text=new Text(treeRoot.verify(value.toString().split("#")[0]));
+        //Text text=new Text(treeRoot.verify(value.toString()));
+        Text text=new Text(treeRoot.verifyInfo(value.toString()).label);
         context.write(value,text);
     }
 }

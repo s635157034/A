@@ -21,7 +21,7 @@ public class MakeNames {
 
         Configuration conf = new Configuration();
         Job job = Job.getInstance(conf);
-
+        job.setJobName("DT_MakeNames");
         job.setJarByClass(MakeNames.class);
         job.setMapperClass(MakeNamesMapper.class);
         job.setReducerClass(MakeNamesReducer.class);
