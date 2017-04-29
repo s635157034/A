@@ -96,7 +96,7 @@ class Decision{
 
     public String verifyInfo(String s){
         HashMap<String,Double> result=new HashMap<>();
-        double maxWeight=0;
+        double maxWeight=-1;
         String maxKey="error";
         String verifyTmp;
         double verifyWeight;
@@ -117,6 +117,10 @@ class Decision{
             }
             else{
                 result.put(verifyTmp,tmp.weight*verifyWeight);
+                if(verifyWeight>maxWeight)
+                {
+                    maxKey=verifyTmp;
+                }
             }
         }
         return maxKey;

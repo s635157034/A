@@ -16,7 +16,7 @@ import java.io.IOException;
  */
 public class AdaboostVerifyMR {
     public static void main(String[] args) throws Exception {
-        String root="/adult";
+        String root="/root/桌面/Adaboost数据/adult/10个分类器/adult";
 
         run(root);
 
@@ -33,6 +33,8 @@ public class AdaboostVerifyMR {
         conf.set("info",classiferinfo);
         conf.set("mapreduce.output.textoutputformat.separator", "#");
         Job job=Job.getInstance(conf);
+        job.setJobName("ABverify");
+
 
         job.setJarByClass(AdaboostVerifyMR.class);
         job.setMapperClass(AdaboostVerifyMapper.class);
