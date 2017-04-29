@@ -33,7 +33,6 @@ public class ErrorSumMR {
         Configuration conf = new Configuration();
         conf.set("error",error);
         conf.set("total",totalnum);
-        conf.set("mapred.textoutputformat.separator", "#");
 
         Job job = Job.getInstance(conf);
         job.setJobName("Errorsum");
