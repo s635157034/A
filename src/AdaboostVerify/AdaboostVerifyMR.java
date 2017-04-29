@@ -24,6 +24,7 @@ public class AdaboostVerifyMR {
 
         Configuration conf=new Configuration();
         String data=root+"/data";
+        String testdata="/root/桌面/Adaboost数据/adult/testdata";
         String results=root+"/VerifyResults-all";
         String classiferPath=root+"/classifer";
         String classiferinfo=root+"/classiferInfo";

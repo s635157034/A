@@ -103,9 +103,9 @@ class Decision{
         for(ClassiferInfo tmp : classiferInfList){
             Tree.VerifyInfo verifyInfo=tmp.treeRoot.verifyInfo(s);
             verifyTmp=verifyInfo.label;
-            verifyWeight=tmp.weight;
+            //verifyWeight=tmp.weight;
             //verifyWeight=verifyInfo.weight*tmp.weight;
-            //verifyWeight= verifyInfo.weight == 1 ?1:0;
+            verifyWeight= verifyInfo.weight == 1 ?1:0;
             if(result.containsKey(verifyTmp))
             {
                 double weight=result.get(verifyTmp);
