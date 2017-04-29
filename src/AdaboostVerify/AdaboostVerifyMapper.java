@@ -33,7 +33,7 @@ public class AdaboostVerifyMapper extends Mapper<LongWritable,Text,Text,Text> {
         }
         scanner.close();
         fsDataInputStream.close();
-        decision.addAttribute();
+        decision.addAttribute(false);
     }
 
     @Override
@@ -103,12 +103,13 @@ class Decision{
         for(ClassiferInfo tmp : classiferInfList){
             Tree.VerifyInfo verifyInfo=tmp.treeRoot.verifyInfo(s);
             verifyTmp=verifyInfo.label;
-            //verifyWeight=verifyInfo.weight;
-            verifyWeight= verifyInfo.weight == 1 ?1:0;
+            verifyWeight=tmp.weight;
+            //verifyWeight=verifyInfo.weight*tmp.weight;
+            //verifyWeight= verifyInfo.weight == 1 ?1:0;
             if(result.containsKey(verifyTmp))
             {
                 double weight=result.get(verifyTmp);
-                weight+=tmp.weight*verifyWeight;
+                weight+=verifyWeight;
                 if(weight>maxWeight)
                 {
                     maxKey=verifyTmp;
@@ -116,7 +117,7 @@ class Decision{
                 result.put(verifyTmp,weight);
             }
             else{
-                result.put(verifyTmp,tmp.weight*verifyWeight);
+                result.put(verifyTmp,verifyWeight);
                 if(verifyWeight>maxWeight)
                 {
                     maxKey=verifyTmp;
@@ -126,13 +127,13 @@ class Decision{
         return maxKey;
     }
 
-    public void addAttribute(){
+    public void addAttribute(boolean flag){
         for(ClassiferInfo tmp : classiferInfList){
             tmp.treeRoot.addAttribute();
+            if(flag)
+                tmp.treeRoot.SimplePruning();
         }
-
     }
-
 }
 
 

@@ -15,7 +15,7 @@ import java.util.Scanner;
 
 
 public class ABmain {
-    public static long N = 3000;//抽取样本数量
+    public static long N = 500;//抽取样本数量
     public static long T;//全部数据数量
     public static long max = 3;
     public static double MaxError = 1;
@@ -27,7 +27,7 @@ public class ABmain {
         long startTime=System.currentTimeMillis();
 
 
-        String root ="/adult";
+        String root ="/root/桌面/test";
         String data = root+"/data";//数据集
         String tempdata = root+"/tempdata";//包含权重的数据
         String sample = root+"/sample";//抽样文件

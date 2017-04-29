@@ -30,12 +30,14 @@ public class DecisionTreeMapper extends Mapper<Object, Text, Text, IntWritable> 
      * 配置函数，主要负责从DistributedCache中读取条件集队列
      */
     public void setup(Context context) throws IOException {
-        Path[] filePath =
+        Configuration conf=context.getConfiguration();
+        /*Path[] filePath =
                 DistributedCache.getLocalCacheFiles(context.getConfiguration());
         // 因为只有一个文件，所以这个文件应该是Queue
         assert (filePath.length == 1);
         // 载入条件队列信息
-        loadQueueFile(filePath[0], context.getConfiguration());
+        loadQueueFile(filePath[0], context.getConfiguration());*/
+        loadQueueFile(new Path(conf.get("RulePath")),conf);
     }
 
     /**

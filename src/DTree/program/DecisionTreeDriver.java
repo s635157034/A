@@ -9,6 +9,7 @@ import org.apache.hadoop.filecache.DistributedCache;
 import org.apache.hadoop.fs.*;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
@@ -156,18 +157,17 @@ public class DecisionTreeDriver {
     /**
      * 运行MapReduce作业来进行统计
      */
-    private static void runMapReduceJob(String dataSetPath,
-                                        String nodeRuleQueueFilePath, String statisticFilePath, int itCount)
+    private static void runMapReduceJob(String dataSetPath, String nodeRuleQueueFilePath, String statisticFilePath, int itCount)
             throws Exception {
         conf = new Configuration();
         // 配置全局队列
         // 将规则文件加入Cache
-        DistributedCache
-                .addCacheFile(new Path(nodeRuleQueueFilePath).toUri(), conf);
+        conf.set("RulePath",nodeRuleQueueFilePath);
+        //DistributedCache.addCacheFile(new Path(nodeRuleQueueFilePath).toUri(), conf);
         System.err.println("NODE_RULE_URI:"
                 + new Path(nodeRuleQueueFilePath).toUri());
-        org.apache.hadoop.mapreduce.Job job =
-                new org.apache.hadoop.mapreduce.Job(conf, "MR_DecisionTree-" + itCount);
+        Job job=Job.getInstance(conf);
+        job.setJobName("MR_DecisionTree-" + itCount);
         job.setJarByClass(DecisionTreeDriver.class);
         // 设置Map阶段配置
         job.setMapOutputKeyClass(Text.class);

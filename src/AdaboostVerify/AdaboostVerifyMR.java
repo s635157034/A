@@ -1,5 +1,6 @@
 package AdaboostVerify;
 
+import AdaBoost.ABmain;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.Text;
@@ -16,10 +17,8 @@ import java.io.IOException;
  */
 public class AdaboostVerifyMR {
     public static void main(String[] args) throws Exception {
-        String root="/adult";
-
+        String root="/root/桌面/test";
         run(root);
-
     }
     public static void run(String root) throws Exception {
 
@@ -28,6 +27,8 @@ public class AdaboostVerifyMR {
         String results=root+"/VerifyResults-all";
         String classiferPath=root+"/classifer";
         String classiferinfo=root+"/classiferInfo";
+
+        ABmain.DeleteFiles(results);
 
         conf.set("rules",classiferPath);
         conf.set("info",classiferinfo);

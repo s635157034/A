@@ -17,9 +17,6 @@ import java.io.IOException;
 public class VerifyMR {
     public static void run(String data,String out,String rules) throws IOException, ClassNotFoundException, InterruptedException {
         Configuration conf=new Configuration();
-        /*String data="test-data/data";
-        String tmp="verifyTEMP";
-        String rules="test-data/model";*/
         conf.set("rules",rules);
         conf.set("mapreduce.output.textoutputformat.separator", "#");
         Job job=Job.getInstance(conf);

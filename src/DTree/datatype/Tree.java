@@ -94,6 +94,8 @@ public class Tree {
             String name;
             for(Tree tmp : tree.values()){
                 tmp.addAttribute();
+                if(tmp.leaf==false)
+                    continue;
                 name=tmp.label;
                 if(max.containsKey(name)){
                     max.get(name).count++;
@@ -116,6 +118,25 @@ public class Tree {
         }
 
     }
+
+    public void SimplePruning(){
+        if(!leaf)
+        {
+            for(Tree tmp : tree.values()){
+                tmp.SimplePruning();
+                if(tmp.leaf==false)
+                    return;
+            }
+            if(weight>0.98){
+                this.tree=null;
+                this.leaf=true;
+            }
+
+        }
+    }
+
+
+
     class Counter{
         String label;
         int count=0;
