@@ -113,6 +113,7 @@ class Decision{
                 if(weight>maxWeight)
                 {
                     maxKey=verifyTmp;
+                    maxWeight=weight;
                 }
                 result.put(verifyTmp,weight);
             }
@@ -121,6 +122,7 @@ class Decision{
                 if(verifyWeight>maxWeight)
                 {
                     maxKey=verifyTmp;
+                    maxWeight=verifyWeight;
                 }
             }
         }

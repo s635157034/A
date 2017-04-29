@@ -17,7 +17,7 @@ import java.util.Scanner;
 public class ABmain {
     public static long N = 500;//抽取样本数量
     public static long T;//全部数据数量
-    public static long max = 3;
+    public static long max = 5;
     public static double MaxError = 1;
     public static ArrayList<ClassiferInfo> info = new ArrayList<ClassiferInfo>();
     public static ArrayList<ClassiferInfo> allinfo =new ArrayList<>();
