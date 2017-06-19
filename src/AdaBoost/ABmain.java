@@ -2,6 +2,7 @@ package AdaBoost;
 
 import AdaboostVerify.AdaboostVerifyMR;
 import DTree.program.DecisionTreeDriver;
+import DecesionStump.DecesionStump;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FSDataOutputStream;
 import org.apache.hadoop.fs.FileSystem;
@@ -15,7 +16,7 @@ import java.util.Scanner;
 
 
 public class ABmain {
-    public static long N = 1000;//抽取样本数量
+    public static long N = 200;//抽取样本数量
     public static long T;//全部数据数量
     public static long max = 3;
     public static double MaxError = 1;
@@ -27,7 +28,7 @@ public class ABmain {
         long startTime=System.currentTimeMillis();
 
 
-        String root ="/root/桌面/test";
+        String root ="Adaboost";
         String data = root+"/data";//数据集
         String tempdata = root+"/tempdata";//包含权重的数据
         String sample = root+"/sample";//抽样文件
@@ -42,7 +43,8 @@ public class ABmain {
 
         InitializeMR.run(data, tempdata, total);//初始化数据集(加入权重）
         T = ReadTotalnumber(total);
-        System.out.println(T);
+        N=T/10;
+
         do {
             i++;
             System.out.println("第"+i+"次抽样");
@@ -60,7 +62,7 @@ public class ABmain {
 
             if (!UpdateWeight(verifyTmp + str, updateTmp, error, total, totalWeight, tempdata, str))//错误率高于0.5则重新生成
             {
-                max++;
+                //max++;
             }
             printInfo(root+ "/classiferInfo",info);
         } while (i < max);
@@ -83,6 +85,9 @@ public class ABmain {
      *
      */
     private static void BuildClassifier(String data, String classiferPath, String DTtemp) throws Exception {
+        //DecesionStump.DSrun(data,DTtemp,classiferPath);
+
+
         DecisionTreeDriver dt=new DecisionTreeDriver();
         dt.DTmain(data, DTtemp, classiferPath);
         //DTree.program.DecisionTreeDriver.DTmain(data, DTtemp, classiferPath);

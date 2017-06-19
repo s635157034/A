@@ -105,7 +105,7 @@ class Decision{
             verifyTmp=verifyInfo.label;
             //verifyWeight=tmp.weight;
             //verifyWeight=verifyInfo.weight*tmp.weight;
-            verifyWeight= verifyInfo.weight == 1 ?1:0;
+            verifyWeight= verifyInfo.weight == 1 ?1:0.00001;
             if(result.containsKey(verifyTmp))
             {
                 double weight=result.get(verifyTmp);

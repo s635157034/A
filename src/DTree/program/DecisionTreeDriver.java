@@ -208,7 +208,7 @@ public class DecisionTreeDriver {
         List<StatisticRecord> records = info.getRecords(splitAid, value);
         int i = 0;
         for (i = 0; i < records.size() - 1; i++) {
-            System.out.println(records.get(i).label);
+            //System.out.println(records.get(i).label);
             if (!records.get(i).label.equals(records.get(i + 1).label)) {
                 break;
             }
