@@ -16,9 +16,9 @@ import java.util.Scanner;
 
 
 public class ABmain {
-    public static long N = 200;//抽取样本数量
+    public static long N;//抽取样本数量
     public static long T;//全部数据数量
-    public static long max = 3;
+    public static long max = 1;
     public static double MaxError = 1;
     public static ArrayList<ClassiferInfo> info = new ArrayList<ClassiferInfo>();
     public static ArrayList<ClassiferInfo> allinfo =new ArrayList<>();
@@ -43,7 +43,7 @@ public class ABmain {
 
         InitializeMR.run(data, tempdata, total);//初始化数据集(加入权重）
         T = ReadTotalnumber(total);
-        N=T/10;
+        N=T/3;
 
         do {
             i++;

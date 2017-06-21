@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.filecache.DistributedCache;
+import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
@@ -46,7 +47,8 @@ public class DecisionTreeMapper extends Mapper<Object, Text, Text, IntWritable> 
     private void loadQueueFile(Path filePath, Configuration conf)
             throws IOException {
         // System.err.println("QUEUE_FILE_PATH=" + filePath.toString());
-        Scanner scanner = new Scanner(new File(filePath.toString()));
+        FileSystem fs=FileSystem.get(conf);
+        Scanner scanner = new Scanner(fs.open(filePath));
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             if (line.length() == 0)

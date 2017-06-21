@@ -307,6 +307,9 @@ public class DecisionTreeDriver {
             FSDataOutputStream ostream = fs.create(path);
             PrintWriter printWriter = new PrintWriter(ostream);
             // 输出队列中的信息
+            /*if(queue.size()==0) {
+                printWriter.println();
+            }*/
             for (Rule rule : queue) {
                 printWriter.println(rule.toString());
             }

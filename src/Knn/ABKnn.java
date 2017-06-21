@@ -12,6 +12,9 @@ import java.util.Scanner;
  * Created by root on 17-6-20.
  */
 public class ABKnn {
+
+    // TODO: 17-6-20 1.测试数据（即源数据）去掉label作为测试数据。2.调用KNN方法。3,将结果附加到带圈中的数据中，4.判断正确修改权重
+
     public static void main(String[] args) throws IOException {
         String data="KNN/wine-test";
         String result="KNN/wine-out"+"/part-r-00000";
